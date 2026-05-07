@@ -1,4 +1,4 @@
-﻿const BASE_URL = 'http://localhost:5035'
+﻿const BASE_URL = 'https://aspvue-backend-2.onrender.com'
 
 const store = {
     token: null,
