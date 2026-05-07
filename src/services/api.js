@@ -1,4 +1,5 @@
-﻿const BASE_URL = 'https://aspvue-backend.onrender.com'
+﻿const BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5035';
+
 const store = {
     token: null,
     username: null,
