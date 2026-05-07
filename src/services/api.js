@@ -1,6 +1,5 @@
-﻿const BASE_URL = 'https://aspvue-backend-2.onrender.com'
+﻿const BASE_URL = 'http://localhost:5035'
 
-// Dùng memory thay localStorage để tránh lỗi extension
 const store = {
     token: null,
     username: null,
@@ -27,6 +26,18 @@ export function getAuth() {
             role: localStorage.getItem('role')
         }
     } catch { return store }
+}
+
+export async function adminDeleteUser(id) {
+    await fetch(`${BASE_URL}/api/admin/users/${id}`, {
+        method: 'DELETE',
+        headers: getHeaders()
+    })
+}
+
+export async function adminGetStats() {
+    const res = await fetch(`${BASE_URL}/api/admin/stats`, { headers: getHeaders() })
+    return res.json()
 }
 
 export function clearAuth() {
@@ -109,4 +120,38 @@ export async function adminSetRole(userId, role) {
         body: JSON.stringify({ role })
     })
     return res.json()
+}
+
+export async function getBalance() {
+    const res = await fetch(`${BASE_URL}/api/auth/balance`, {
+        headers: getHeaders()
+    })
+    return res.json()
+}
+
+// Function to call deposit API
+export async function depositApi(data) {
+    const res = await fetch(`${BASE_URL}/api/auth/deposit`, {
+        method: 'POST',
+        headers: getHeaders(),
+        body: JSON.stringify(data)
+    });
+    const result = await res.json();
+    if (!res.ok) throw { response: { data: result } };
+    return result;
+}
+
+
+// Function to call extend link API
+export async function extendUrlApi(id, data) {
+    const res = await fetch(`${BASE_URL}/api/shorturl/extend/${id}`, {
+        method: 'POST',
+        headers: getHeaders(),
+        body: JSON.stringify(data)
+    });
+    const result = await res.json();
+    if (!res.ok) throw { response: { data: result } };
+    return result;
+
+
 }
