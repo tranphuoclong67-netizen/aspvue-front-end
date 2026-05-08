@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-﻿const BASE_URL = 'http://localhost:5035'
-=======
-﻿const BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5035';
->>>>>>> b35dce1cbc2ff8bd70700407fcbfa0300cec558c
+const BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5035';
 
 const store = {
     token: null,
@@ -59,7 +55,6 @@ function getHeaders() {
     }
 }
 
-// Auth
 export async function register(username, password) {
     const res = await fetch(`${BASE_URL}/api/auth/register`, {
         method: 'POST',
@@ -78,7 +73,6 @@ export async function login(username, password) {
     return res.json()
 }
 
-// Short URLs
 export async function shortenUrl(originalUrl) {
     const res = await fetch(`${BASE_URL}/api/shorturl`, {
         method: 'POST',
@@ -102,7 +96,6 @@ export async function deleteUrl(id) {
     })
 }
 
-// Admin
 export async function adminGetAllUsers() {
     const res = await fetch(`${BASE_URL}/api/admin/users`, { headers: getHeaders() })
     return res.json()
@@ -133,7 +126,6 @@ export async function getBalance() {
     return res.json()
 }
 
-// Function to call deposit API
 export async function depositApi(data) {
     const res = await fetch(`${BASE_URL}/api/auth/deposit`, {
         method: 'POST',
@@ -145,8 +137,6 @@ export async function depositApi(data) {
     return result;
 }
 
-
-// Function to call extend link API
 export async function extendUrlApi(id, data) {
     const res = await fetch(`${BASE_URL}/api/shorturl/extend/${id}`, {
         method: 'POST',
@@ -156,6 +146,4 @@ export async function extendUrlApi(id, data) {
     const result = await res.json();
     if (!res.ok) throw { response: { data: result } };
     return result;
-
-
 }
